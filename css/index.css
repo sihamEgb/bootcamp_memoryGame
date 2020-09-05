@@ -1,0 +1,56 @@
+:root{
+	--column: 3;
+	--row: 4;
+}
+body{
+	
+}
+.container{
+	display: grid;
+}
+.headerContainer{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+nav{
+	/* width: 20px; */
+	background-color:green;
+	height: 100%;
+}
+.clock{
+	background-color: red;
+}
+
+.boardContainer{
+	display: flex;
+	flex-wrap: wrap;
+	background-color: #2196F3;
+	width: 70vw;
+	height: 50vh;
+	padding: 1rem;
+}
+.card {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  /* font-size: 30px; */
+	/* margin: 2px; */
+	padding: 5px;
+  text-align: center;
+	width: calc(100% /var(--column));
+	/* height: same-as-width; */
+	height: calc(100% /var(--row));
+}
+.opened{
+	/* background-color: red; */
+}
+.closed{
+
+}
+.done{
+	/* background: black; */
+}
+footer{
+	position: fixed;
+	margin-bottom: 0;
+}

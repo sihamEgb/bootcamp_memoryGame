@@ -1,0 +1,22 @@
+Requirements:
+1. Responsive
+2. BEM
+3. using variables
+4. animations and transition
+
+
+ToDo:
+- make it look better
+- add hover effect on tools
+- add hover effect on tiles boxShadow
+- add hover wrong tool effect on tools
+
+Bugs:
+- reset button
+
+EXTRA:
+- Add fade-in/out effect when adding/removing tiles
+- make it responsive (for mobile phones)
+- add inventory for All tiles
+- choose starting image
+- add cloud
