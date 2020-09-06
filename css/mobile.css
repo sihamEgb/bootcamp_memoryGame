@@ -1,0 +1,20 @@
+@media(max-width: 768px) {
+	.grid{
+		grid-template-areas:
+		'grid__box-1 grid__box-1 grid__box-1 grid__box-1'
+		'grid__box-2 grid__box-3 grid__box-3 grid__box-3'
+		'grid__box-2 grid__box-3 grid__box-3 grid__box-3'
+		'grid__box-4 grid__box-4 grid__box-4 grid__box-4'
+		'grid__box-5 grid__box-5 grid__box-5 grid__box-5';
+	}
+	@media(max-width: 500px) {
+	.grid{
+		grid-template-areas:
+		'grid__box-1'
+		'grid__box-2'
+		'grid__box-3'
+		'grid__box-4'
+		'grid__box-5';
+
+	}
+}

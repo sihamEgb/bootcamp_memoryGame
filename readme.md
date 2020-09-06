@@ -6,16 +6,23 @@
 - free text
 
 ## What is this app?
- 
+ It is a memory card game.
+ You have to find every matching pait.
+ It has 3 difficulty levels
 
 ## Stuff I found Hard to Implement:
-  
+The events listeners.
+The flipping cards.
+Hiding data in the cards so the user can't use
+the inspect source to see the data
 
 ## Known Bugs
-
+When two cards are flipped you can rapidly flip another card
+Timer
 
 ## My Review of this assignment
-
+At first it seemed small and easy, but all the event listeners handling and card flipping made it more challenging.
+But it made read deeper in event listeners and prototypes.
 
 
 ## My Pseudo Code 

@@ -3,7 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Lora&family=Nunito+Sans&display=swap" rel="stylesheet">
+
+	<link href="https://fonts.googleapis.com/css2?family=Lora&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="css/normalize.css" />
   <link rel="stylesheet" href="css/index.css">
   <!-- <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"> -->
@@ -11,20 +13,48 @@
 	<title>Memory Game</title>
 </head>
 <body>
+	
+	<div class="homepage">
+		<div class="title">
+			<h1>Welcome to Memory Game</h1>
+			<h4>Improve you memory with daily practice</h4>
+		</div>
+		<div class="win">
+			<h2>Congratulations - you win!</h2>
+			<h3>Try solving harder puzzles</h3>
+		</div>
+
+		<div class="lose">
+			<h2>Sorry - you lost!</h2>
+			<h3>You reached maximum number of wrong gussies allowed, try solve easier puzzles for practice</h3>
+		</div>
+		<div>
+			<h2>Choose Level</h2>
+			<div class="level" data-row="3" data-column="4"><a class="level1 selected" href="">Easy 4X3</a></div>
+			<div class="level" data-row="3" data-column="6"><a class="level2" href="">Medium 3X6</a></div>
+			<div class="level" data-row="4" data-column="5"><a class="level3" href="">Hard 4X5</a></div>	
+		</div>
+		<div class="play">
+			<button class="startButton">Start New Game</button>
+		</div>
+
+	</div>
+
 	<header>
 		<div class="headerContainer">
 			<div>Memory Game</div>
 			<div>
-				<button class="startButton">Start New Game</button>
+				<button class="startButton">Reset Game</button>
 			</div>
 			<div class="highscores">
-				high scores (in this session)
+				<button>Your Performance</button>
 			</div>
 		</div>
 	</header>
 	<div class="container">
 		<nav>
 			<div class="timer">
+				<strong>Time passed</strong>
 				<div class="clock">
 					<span class="hours">00</span>
 					<span>:</span>
@@ -36,25 +66,29 @@
 
 			</div>
 			<div class="counter">
-				counter: 0
+				<strong>Wrong gussies</strong>
+				<p>0</p>
 			</div>
 		</nav>
 		<div class="boardContainer">
-			<!-- <div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div> -->
+
+				
+		<!-- <div class="card">
+				<div class="card-inner">
+					<div class="front">empty</div>
+					<div class="back">
+						<img class="back-img" src="./images/food/apple.png">
+					</div>
+				</div>
+			</div>  -->
+			<!-- <div class="card"></div> -->
+		
 		</div>
 	</div>
-	<footer>done by, Siham Egbaria</footer>	
+	<footer>
+		<h3>Siham Egbaria</h3>
+		<h4>Appleseeds Bootcamp 2020</h4>
+	</footer>	
 	<script src="js/index.js"></script>
 </body>
 </html>
