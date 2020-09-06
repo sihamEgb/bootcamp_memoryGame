@@ -50,10 +50,7 @@ startButton.addEventListener('click',() => memoryGame.startNewGame());
 
 // How I Do It
 function MemoryGame() {
-	 // this.memoryGame = memoryGame;
-	//  console.log("hello from constructor land");
 	this.cards = null;
-	this.gameInProgress = false;
 	this.wrongGussies = 0;
 	this.columns = columns;
 	this.rows = rows;
@@ -62,9 +59,12 @@ function MemoryGame() {
 	this.cardsDone = 0;
 	this.cardOpen = 0;
 	this.openedCards = [];
+	// if size != coumns * rows
+	this.size = this.columns * this.rows;
+	this.play = false;
 
 	this.homepageButton = document.querySelector('.homepageButton');
-	this.homepageButton.addEventListener('click',() => this.openHomePage());
+	this.homepageButton.addEventListener('click',() => this.restartGame());
 
 	return this;
 	
@@ -118,12 +118,12 @@ MemoryGame.prototype.initTimer = function(){
 }
 // get random cards from colors
 MemoryGame.prototype.chooseRandomItems = function (){
-	const size = this.columns * this.rows;
+
 	this.selectedItems = [];
 	let counter = 0;
 	// TODO
 	// chose from food images
-	while( counter< size/2 )
+	while( counter< this.size/2 )
 	{
 		// random from 0 - 
 		const index = Math.floor(Math.random()*(food_images.length));
@@ -332,20 +332,55 @@ function showCard(cardDOM,cardObj){
 		}
 	}	
 }
+MemoryGame.prototype.restartGame = function(){
+	this.play = false;
+	this.openHomePage();
+}
 MemoryGame.prototype.openHomePage = function(){
 	const homepage = document.querySelector('.homepage');
 	homepage.style.display = "block";
-	if(this.wrongGussies < this.maxWrongGussies)
+
+	const container = document.querySelector('.container');
+	container.style.display = "none";
+
+	const header = document.querySelector('.headerContainer');
+	header.style.display = "none";
+
+	const nav = document.querySelector('nav');
+	nav.style.display = 'none';
+
+
+	if(this.play && this.wrongGussies < this.maxWrongGussies)
 	{
 		const win = document.querySelector('.win');
 		win.style.display = "block";
+
+		const time = document.querySelector('.time');
+		time.innerHTML = `Done in ${this.hours}:${this.minutes}:${this.seconds}`;
+		const attempts = document.querySelector('.attempts');
+		attempts.innerHTML = `It took you ${this.wrongGussies} attempts`;
+	
 	}
-	else
+	else if(this.play && this.wrongGussies >= this.maxWrongGussies)
 	{
 		const lose = document.querySelector('.lose');
 		lose.style.display = "block";
-
 	}
+}
+MemoryGame.prototype.closeHomePage = function(){
+	const homepage = document.querySelector('.homepage');
+	homepage.style.display = "none";
+
+	const container = document.querySelector('.container');
+	container.style.display = "grid";
+
+	const header = document.querySelector('.headerContainer');
+	header.style.display = "flex";
+
+	const nav = document.querySelector('nav');
+	
+	nav.style.gridArea = nav;
+	nav.style.display = 'block';
 }
 MemoryGame.prototype.gameFinished = function()
 {
@@ -357,9 +392,9 @@ MemoryGame.prototype.gameFinished = function()
 // stop opening more cards no clicks
 MemoryGame.prototype.handleGameClick = function(event){
 
-	if(!this.gameInProgress)
+	if(this.cardsDone === this.size)
 	{
-		console.log("game not in progress",this.gameInProgress);
+		console.log("game not in progress");
 		event.stopPropagation();
 		return;
 	}
@@ -418,7 +453,6 @@ function selectLevel(e){
 }
 MemoryGame.prototype.startNewGame = function(e){
 	this.cards = null;
-	this.gameInProgress = true;
 	this.wrongGussies = 0;
 	this.maxWrongGussies = 100;
 	this.startTime = null;
@@ -426,9 +460,12 @@ MemoryGame.prototype.startNewGame = function(e){
 	this.cardsDone = 0;
 	this.cardOpen = 0;
 	this.openedCards = [];
+	this.play = true;
 
 	this.columns = columns;
 	this.rows = rows;
+
+	this.size = this.columns * this.rows;
 
 	const root = document.documentElement;
 
@@ -440,20 +477,7 @@ MemoryGame.prototype.startNewGame = function(e){
 	console.log(root.style.getPropertyValue('--column'));
 	console.log(root.style.getPropertyValue('--row'));
 
-
-	const homepage = document.querySelector('.homepage');
-	homepage.style.display = "none";
-
-	const container = document.querySelector('.container');
-	container.style.display = "grid";
-
-	const header = document.querySelector('.headerContainer');
-	header.style.display = "flex";
-
-	const nav = document.querySelector('nav');
-	
-	nav.style.gridArea = nav;
-	nav.style.display = 'block';
+	this.closeHomePage();
 	
 	this.initCards();
 	this.loadCards();
