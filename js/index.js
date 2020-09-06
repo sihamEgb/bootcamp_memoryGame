@@ -8,9 +8,17 @@ const food_images = [
 	"banana.jpg",
 	"corn.png",
 	"cucumber.jpg",
-	"download.jpg",
+	"avocado.jpg",
 	"orange.jpg",
 	"tomato.jpg",
+	"dragonfruit.jpg",
+	"grapes.jpg",
+	"kiwi.jpg",
+	"lime.jpg",
+	"mango.jpg",
+	"pears.jpg",
+	"strawberry.jpg",
+	"watermelon.jpg",
 ]
 const path = "./images/food/"
 // food_images we have all images
@@ -32,6 +40,12 @@ const Card = {
 
 // What I DO
 const memoryGame = new MemoryGame();
+const levels = document.querySelectorAll('.level');
+levels.forEach(level => level.addEventListener('click', selectLevel));
+
+
+const startButton = document.querySelector('.startButton');
+startButton.addEventListener('click',() => memoryGame.startNewGame());
 
 
 // How I Do It
@@ -49,13 +63,16 @@ function MemoryGame() {
 	this.cardOpen = 0;
 	this.openedCards = [];
 
-	this.startButton = document.querySelector('.startButton');
-	this.startButton.addEventListener('click',() => this.startNewGame());
+	this.homepageButton = document.querySelector('.homepageButton');
+	this.homepageButton.addEventListener('click',() => this.openHomePage());
 
 	return this;
 	
 }
 
+MemoryGame.prototype.stopTimer = function(){
+	clearInterval(this.timer);
+}
 MemoryGame.prototype.initTimer = function(){
 	
 	// let date = new Date();
@@ -315,16 +332,13 @@ function showCard(cardDOM,cardObj){
 		}
 	}	
 }
-MemoryGame.prototype.gameFinished = function()
-{
+MemoryGame.prototype.openHomePage = function(){
 	const homepage = document.querySelector('.homepage');
 	homepage.style.display = "block";
-
 	if(this.wrongGussies < this.maxWrongGussies)
 	{
 		const win = document.querySelector('.win');
 		win.style.display = "block";
-
 	}
 	else
 	{
@@ -332,8 +346,11 @@ MemoryGame.prototype.gameFinished = function()
 		lose.style.display = "block";
 
 	}
-
-
+}
+MemoryGame.prototype.gameFinished = function()
+{
+	this.stopTimer();
+	this.openHomePage();
 }
 
 // game click if more than two opened 
@@ -384,6 +401,9 @@ function selectLevel(e){
 	rows = e.currentTarget.dataset.row;
 	columns = e.currentTarget.dataset.column;
 	
+	console.log("in select level row",rows);
+	console.log("in select level columns",columns);
+	
 	const levels = document.querySelectorAll('.level');
 	levels.forEach(
 		level => 
@@ -392,8 +412,8 @@ function selectLevel(e){
 			link.classList.remove('selected');
 		}
 		);
-		const mylink = e.currentTarget.querySelector('a');
-		mylink.classList.add('selected');
+		const myLink = e.currentTarget.querySelector('a');
+		myLink.classList.add('selected');
 
 }
 MemoryGame.prototype.startNewGame = function(e){
@@ -407,8 +427,28 @@ MemoryGame.prototype.startNewGame = function(e){
 	this.cardOpen = 0;
 	this.openedCards = [];
 
+	this.columns = columns;
+	this.rows = rows;
+
+	const root = document.documentElement;
+
+	console.log("rows",rows);
+	console.log("columns",columns);
+  root.style.setProperty('--column', columns);
+  root.style.setProperty('--row', rows);
+
+	console.log(root.style.getPropertyValue('--column'));
+	console.log(root.style.getPropertyValue('--row'));
+
+
 	const homepage = document.querySelector('.homepage');
 	homepage.style.display = "none";
+
+	const container = document.querySelector('.container');
+	container.style.display = "grid";
+
+	const header = document.querySelector('.headerContainer');
+	header.style.display = "flex";
 
 	const nav = document.querySelector('nav');
 	
@@ -426,9 +466,3 @@ MemoryGame.prototype.startNewGame = function(e){
 	wrongGussies.innerHTML = "Wrong Gussies" + this.wrongGussies;	
 	
 }
-const levels = document.querySelectorAll('.level');
-levels.forEach(level => level.addEventListener('click', selectLevel));
-
-
-// const cardTEMP = document.querySelector('.card');
-// cardTEMP.addEventListener('click',cardListener);

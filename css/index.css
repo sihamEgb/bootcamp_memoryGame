@@ -65,6 +65,7 @@ s}
 } */
 .container{
 	display: grid;
+	display: none;
 	grid-gap: 1rem;
 	grid-template-areas:
 	'  headerContainer headerContainer'
@@ -74,6 +75,7 @@ s}
 
 .headerContainer{
 	display: flex;
+	display: none;
 	flex-direction: row;
 	justify-content: space-around;
 	grid-area: headerContainers;
