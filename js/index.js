@@ -128,7 +128,7 @@ MemoryGame.prototype.chooseRandomItems = function (){
 		// random from 0 - 
 		const index = Math.floor(Math.random()*(food_images.length));
 		const chosenItem = food_images[index];
-		// console.log("chosen items",chosenItem);
+
 		if(this.selectedItems.indexOf(chosenItem) === -1)
 		{
 			this.selectedItems.push(chosenItem);
@@ -149,8 +149,6 @@ MemoryGame.prototype.addCardsWithId = function(tempCards){
 		this.cards[i] = {id:i,card:tempCards[i]};
 		this.itemsID[i] = 	this.cards[i].card.src;
 	}
-	console.log(this.cards);
-	// console.log(this.items);
 
 }
 // shuffle array
@@ -179,10 +177,8 @@ MemoryGame.prototype.initCards = function(){
 		}
 		tempCards.push(newCard_1);
 		tempCards.push(newCard_2);
-		// console.log("cards array",this.cards);
 	}
 	this.addCardsWithId(tempCards);
-	console.log(this.itemsID);
 }
 
 function createCardDOM(card){
@@ -203,9 +199,6 @@ function createCardDOM(card){
 	// TODO something about this !!!
 	backImage.src = `${path}${card.card.src}`;
 
-	// console.log("image source",card.card.src);
-	// console.log("image source",backImage.src);
-	// backImage.style.visibility = "none";
 	back.append(backImage);
 	cardInner.append(front);
 	cardInner.append(back);
@@ -215,11 +208,11 @@ function createCardDOM(card){
 	return newCard;
 }
 MemoryGame.prototype.loadCards = function(){
-	// console.log(this.cards);
+
 	const cardContainer = document.querySelector('.boardContainer');
 	cardContainer.innerHTML = "";
 	this.cards.forEach(card => {
-		// console.log("add event listener", card);
+
 		const newCard = createCardDOM(card);
 		newCard.addEventListener('click',(e) => this.cardListener(e));
 		cardContainer.append(newCard);
@@ -227,7 +220,7 @@ MemoryGame.prototype.loadCards = function(){
 
 }
 MemoryGame.prototype.getCardById = function(id){
-	console.log("inside get card by id",this.cards);
+
 	id = parseInt(id);
 	for(let i=0;i<this.cards.length;i++)
 	{
@@ -249,7 +242,7 @@ MemoryGame.prototype.wrong = function(){
 }
 MemoryGame.prototype.closeOpenedCard = function(){
 	this.wrong();
-	console.log("after time out",this.openedCards);
+
 	this.openedCards[0].classList.remove('opened');
 	hideCard(this.openedCards[0]);
 	this.openedCards[1].classList.remove('opened');
@@ -275,11 +268,7 @@ function showCard(cardDOM,cardObj){
 }
 
 	MemoryGame.prototype.cardListener = function(event){
-		console.log("flipping cad");
 	const cardClicked = event.currentTarget;
-	// cardClicked.classList.add('opened');
-	// console.log("opened cards",this.openedCards);
-	console.log("card clicked",cardClicked);
 
 	if(cardClicked.classList.contains('done'))
 	{
@@ -292,17 +281,13 @@ function showCard(cardDOM,cardObj){
 		const cardOpened = this.getCardById(cardClicked.dataset.id)
 		showCard(cardClicked,cardOpened);
 	this.openedCards.push(cardClicked);
-	console.log("r33333333333",cardClicked);
+
 	// this.firstCardOpened = cardClicked;
 	if(this.openedCards.length === 2)
 	{
 		// if identical
 		const firstCardObj = this.getCardById(this.openedCards[0].dataset.id)
 		const secondCardObj = this.getCardById(this.openedCards[1].dataset.id)
-		// console.log("first card opened",this.openedCards[0]);
-		// console.log("second card opened",this.openedCards[1]);
-		// console.log("first card obj",firstCardObj);
-		// console.log("second card obj",secondCardObj);
 		if(firstCardObj.src === secondCardObj.src)
 		{
 			// TODO bug
@@ -317,8 +302,6 @@ function showCard(cardDOM,cardObj){
 			this.openedCards = [];
 			if(this.cardsDone === this.rows * this.columns)
 			{
-				console.log("game finished - you win");
-			
 				const gameFinishedBind =  this.gameFinished.bind(this);
 				setTimeout(function() { gameFinishedBind();},1500);
 			}
@@ -394,7 +377,6 @@ MemoryGame.prototype.handleGameClick = function(event){
 
 	if(this.cardsDone === this.size)
 	{
-		console.log("game not in progress");
 		event.stopPropagation();
 		return;
 	}
@@ -402,13 +384,11 @@ MemoryGame.prototype.handleGameClick = function(event){
 	const cardClicked = event.target;
 	if(cardClicked.classList.contains('card'))
 	{
-		console.log("Card clicked",cardClicked);
 		// do nothing
 		if((this.cardOpen===2) || 
 			(cardClicked.classList.contains('opened')) ||
 			(cardClicked.classList.contains('done')))
 		{
-			console.log("propagation stopped");
 			event.stopPropagation();
 			return;
 		}
@@ -432,12 +412,9 @@ MemoryGame.prototype.handleGameClick = function(event){
 }
 function selectLevel(e){
 	e.preventDefault();
-	console.log('level selected',e);
+	
 	rows = e.currentTarget.dataset.row;
 	columns = e.currentTarget.dataset.column;
-	
-	console.log("in select level row",rows);
-	console.log("in select level columns",columns);
 	
 	const levels = document.querySelectorAll('.level');
 	levels.forEach(
@@ -469,13 +446,8 @@ MemoryGame.prototype.startNewGame = function(e){
 
 	const root = document.documentElement;
 
-	console.log("rows",rows);
-	console.log("columns",columns);
   root.style.setProperty('--column', columns);
   root.style.setProperty('--row', rows);
-
-	console.log(root.style.getPropertyValue('--column'));
-	console.log(root.style.getPropertyValue('--row'));
 
 	this.closeHomePage();
 	

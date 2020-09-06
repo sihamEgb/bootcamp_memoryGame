@@ -6,16 +6,16 @@ Requirements:
 
 
 ToDo:
-- add new theme (food animals shoes)
 - disable click on opened card
-- make it look better
 - add local storage (prev scores)
-- finish game : timer , wrong gussies
 
+- finish game : timer , wrong gussies
+- attempts should include also right matches
+- add new theme (food animals shoes)
+- make prettier theme (ninja theme pokemon)
 
 Bugs:
-- disable clicking on multuple cars fast
+- disable clicking on multiple cards fast
 - restart timer on load page
 - responsive on mobile
 
-EXTRA:
