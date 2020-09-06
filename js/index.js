@@ -241,8 +241,8 @@ MemoryGame.prototype.wrong = function(){
 	wrongGussies.innerHTML = "Wrong Gussies" + this.wrongGussies;	
 }
 MemoryGame.prototype.closeOpenedCard = function(){
-	this.wrong();
 
+	this.wrong();
 	this.openedCards[0].classList.remove('opened');
 	hideCard(this.openedCards[0]);
 	this.openedCards[1].classList.remove('opened');
@@ -259,6 +259,7 @@ function hideCard(cardDOM){
 }
 function showCard(cardDOM,cardObj){
 
+	cardDOM.classList.add('opened');
 		if(cardDOM.style.transform == "rotateY(180deg)") {
 			cardDOM.style.transform = "rotateY(0deg)";
 		}
@@ -269,23 +270,27 @@ function showCard(cardDOM,cardObj){
 
 	MemoryGame.prototype.cardListener = function(event){
 	const cardClicked = event.currentTarget;
-
-	if(cardClicked.classList.contains('done'))
-	{
-		return;
-	}
-
+	const cardOpened = this.getCardById(cardClicked.dataset.id);
 	
-		// }
+		console.log("cardClicked",cardClicked);
+		if((cardClicked.classList.contains('opened')) ||
+			(cardClicked.classList.contains('done')))
+		{
+			event.stopPropagation();
+			return;
+		}
 	
-		const cardOpened = this.getCardById(cardClicked.dataset.id)
-		showCard(cardClicked,cardOpened);
+
+
+	showCard(cardClicked,cardOpened);
+
 	this.openedCards.push(cardClicked);
 
 	// this.firstCardOpened = cardClicked;
 	if(this.openedCards.length === 2)
 	{
 		// if identical
+		
 		const firstCardObj = this.getCardById(this.openedCards[0].dataset.id)
 		const secondCardObj = this.getCardById(this.openedCards[1].dataset.id)
 		if(firstCardObj.src === secondCardObj.src)
@@ -310,6 +315,10 @@ function showCard(cardDOM,cardObj){
 		else{
 			//if not equal
 			// TODO - bug
+			event.preventDefault();
+			console.log("cards not identical");
+			console.log("cards opened", this.openedCards[0]);
+			console.log("cards opened", this.openedCards[1]);
 			const closeOpenedCardBind =  this.closeOpenedCard.bind(this);
 			setTimeout(function() { closeOpenedCardBind();},1500);
 		}
@@ -375,40 +384,15 @@ MemoryGame.prototype.gameFinished = function()
 // stop opening more cards no clicks
 MemoryGame.prototype.handleGameClick = function(event){
 
+	if(this.openedCards.length === 2)
+	{
+		event.stopPropagation();
+	}
 	if(this.cardsDone === this.size)
 	{
 		event.stopPropagation();
 		return;
 	}
-	// const card = document.querySelector('.card');
-	const cardClicked = event.target;
-	if(cardClicked.classList.contains('card'))
-	{
-		// do nothing
-		if((this.cardOpen===2) || 
-			(cardClicked.classList.contains('opened')) ||
-			(cardClicked.classList.contains('done')))
-		{
-			event.stopPropagation();
-			return;
-		}
-		else
-		{	
-			// first card to open
-			if(this.cardOpen === 0)
-			{
-				this.cardOpen++;
-			}
-			// second card to open
-			else if(this.cardOpen === 1)
-			{
-				this.cardOpen++;
-				// open new card - in card listener
-			}
-		}
-	}
-
-
 }
 function selectLevel(e){
 	e.preventDefault();
