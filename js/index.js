@@ -250,6 +250,7 @@ MemoryGame.prototype.closeOpenedCard = function(){
 	this.openedCards = [];
 }
 function hideCard(cardDOM){
+	cardDOM.classList.remove('opened');
 	if(cardDOM.style.transform == "rotateY(180deg)") {
 		cardDOM.style.transform = "rotateY(0deg)";
 	}
